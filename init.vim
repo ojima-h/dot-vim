@@ -23,7 +23,7 @@ nnoremap [unite] <Nop>
 nmap <Space> [unite]
 
 nnoremap <silent> [unite]f :<C-u>Unite -start-insert buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]F :<C-u>Unite -start-insert file_mru file<CR>
+nnoremap <silent> [unite]n :<C-u>Unite -start-insert file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite -start-insert neobundle/search<CR>
 nnoremap <silent> [unite]x :<C-u>Unite -start-insert command mapping<CR>
 nnoremap <silent> [unite]o :VimFiler -split -simple -winwidth=20 -no-quit<CR>
@@ -117,6 +117,8 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 
+NeoBundle 'vimtaku/hl_matchit.vim.git'
+
 filetype plugin indent on     " Required!
 
 " Installation check.
@@ -124,3 +126,4 @@ NeoBundleCheck
 
 source ~/.vim/color/molokai.vim
 
+runtime macros/matchit.vim
