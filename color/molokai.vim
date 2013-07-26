@@ -181,7 +181,8 @@ if &t_Co > 255
    hi SpecialChar     ctermfg=161               cterm=bold
    hi SpecialComment  ctermfg=245               cterm=bold
    hi Special         ctermfg=81  ctermbg=232
-   hi SpecialKey      ctermfg=245
+   hi SpecialKey      ctermfg=lightblue
+   "hi SpecialKey      ctermfg=245
 
    hi Statement       ctermfg=161               cterm=bold
    hi StatusLine      ctermfg=238 ctermbg=253
@@ -198,13 +199,15 @@ if &t_Co > 255
 
    hi VertSplit       ctermfg=244 ctermbg=232   cterm=bold
    hi VisualNOS                   ctermbg=238
-   hi Visual                      ctermbg=235
+   "hi Visual                      ctermbg=235
+   hi Visual          ctermfg=yellow            ctermbg=lightblue
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
    hi WildMenu        ctermfg=81  ctermbg=16
 
    hi Normal          ctermfg=252
    "hi Normal          ctermfg=252 ctermbg=233
-   hi Comment         ctermfg=59
+   hi Comment         ctermfg=lightblue
+   "hi Comment         ctermfg=59
    hi CursorLine                  ctermbg=234   cterm=none
    hi CursorColumn                ctermbg=234
    hi LineNr          ctermfg=250 ctermbg=234

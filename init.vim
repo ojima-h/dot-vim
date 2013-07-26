@@ -4,6 +4,10 @@ set ignorecase
 set hlsearch
 set incsearch
 
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp,iso-2022-jp,default
+set expandtab
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -19,19 +23,24 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-nnoremap [unite] <Nop>
-nmap <Space> [unite]
+nnoremap [m] <Nop>
+map      <Space> [m]
+nnoremap <silent> [m]f :<C-u>Unite -start-insert buffer file_mru bookmark file<CR>
+nnoremap <silent> [m]n :<C-u>Unite -start-insert file<CR>
+nnoremap <silent> [m]b :<C-u>Unite -start-insert neobundle/search<CR>
+nnoremap <silent> [m]x :<C-u>Unite -start-insert command mapping<CR>
+nnoremap <silent> [m]o :VimFiler -split -simple -winwidth=20 -no-quit<CR>
+nnoremap <silent> [m]O :VimFiler -simple -no-quit<CR>
+nnoremap <silent> [m]. :b #<CR>
+nnoremap <silent> [m]u :GundoToggle<CR>
+nnoremap <silent> [m]r :QuickRun<CR>
 
-nnoremap <silent> [unite]f :<C-u>Unite -start-insert buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]n :<C-u>Unite -start-insert file<CR>
-nnoremap <silent> [unite]b :<C-u>Unite -start-insert neobundle/search<CR>
-nnoremap <silent> [unite]x :<C-u>Unite -start-insert command mapping<CR>
-nnoremap <silent> [unite]o :VimFiler -split -simple -winwidth=20 -no-quit<CR>
+nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+"if has('mouse')
+"  set mouse=a
+"endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -108,7 +117,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
     \ 'windows' : 'make -f make_mingw32.mak',
-    \ 'cygwin' : 'make -f make_cygwin.mak',
     \ 'mac' : 'make -f make_mac.mak',
     \ 'unix' : 'make -f make_unix.mak',
   \ },
@@ -118,6 +126,20 @@ NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 
 NeoBundle 'vimtaku/hl_matchit.vim.git'
+NeoBundle 'scrooloose/syntastic' " Syntax checking hacks for vim
+NeoBundle 'vim-scripts/vim-auto-save' " Automatically save changes to disk
+NeoBundle 'bufexplorer.zip' " 6.0.2 Buffer Explorer / Browser
+NeoBundle 'shinzui/gundo.vim'
+NeoBundle 'vimgrep.vim' " 1.0   Editing utilities using grep/find without external grep/find programs
+NeoBundle 'visualstar.vim' " 0.2.0 star(*) for Visual-mode.
+NeoBundle 'vimez/vim-showmarks' " Show bookmarks beside number column.
+NeoBundle 'rails.vim' " 18    Ruby on Rails: easy file navigation, enhanced syntax highlighting, and more
+NeoBundle 'neocomplcache' " 2.36  Ultimate auto completion system for Vim
+NeoBundle 'vim-ruby/vim-ruby' " Vim/Ruby Configuration Files
+NeoBundle 'thinca/vim-quickrun' " Run commands quickly.
+NeoBundle 'surround.vim' " 1.6   Delete/change/add parentheses/quotes/XML-tags/much more with ease
+NeoBundle 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column).
+NeoBundle 'Align' " 27/31 Help folks to align text, eqns, declarations, tables, etc
 
 filetype plugin indent on     " Required!
 
@@ -126,4 +148,36 @@ NeoBundleCheck
 
 source ~/.vim/color/molokai.vim
 
-runtime macros/matchit.vim
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_mode_map = {
+      \ 'mode': 'active',
+      \ 'active_filetypes': ['ruby', 'javascript'],
+      \ 'passive_filetypes': []
+      \ }
+
+let g:auto_save = 1  " enable AutoSave on Vim startup
+
+set list listchars=tab:>-,trail:_
+
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_as_default_explorer = 1
+
+set modifiable
+set write
+
+set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
+set grepprg=grep\ -nh
+
+let g:showmarks_include='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+let g:neocomplcache_enable_at_startup = 1
+
+let g:quickrun_config = {}
+let g:quickrun_config['ruby'] = {'command': 'rspec'}
+
+"let g:quickrun_config['ruby.rspec'] = {'command': 'rspec'}
+"augroup MyRSpec
+"        autocmd!
+"        autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
+"augroup END
